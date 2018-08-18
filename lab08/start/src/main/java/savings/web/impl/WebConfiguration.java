@@ -13,38 +13,44 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.joda.JodaModule;
 import common.json.MoneyModule;
 import common.json.PercentageModule;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistration;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.view.InternalResourceViewResolver;
+
+import java.util.List;
 
 @Configuration
 @ComponentScan(basePackageClasses = WebConfiguration.class, excludeFilters = {
         // this filter was added to prevent interference with test configurations
         @ComponentScan.Filter(type = FilterType.ANNOTATION, value = Configuration.class)
 })
-// TODO #1 Enable Web MVC support with appropriate annotation
-// TODO #2 Enable fine tuning of Web MVC configuration by extending from convenient configurer adapter
-public class WebConfiguration {
+@EnableWebMvc
+public class WebConfiguration extends WebMvcConfigurerAdapter {
 
     /*
      * This part of configuration is for classic MVC.
      */
 
-    // TODO #3 override one of base class methods to gain access to ResourceHandlerRegistry and configure serving
-    // 'src/main/webapp/resources' by Spring resources handler;
-    // i.e. 'src/main/webapp/resources/css/main.css' should be available under '/resources/css/main.css';
-    public void replaceMeWithResourceHandlersConfig() {}
-
-    // TODO #4 Configure a view resolver to serve internal '.jsp' resources stored in '/WEB-INF/jsp/'
-    @Bean
-    public ViewResolver defaultViewResolver() {
-        return null;
+    public void addResourceHandlers(ResourceHandlerRegistry registration) {
+        registration.addResourceHandler("resources/**")
+                .addResourceLocations("/resources/");
     }
 
-    /*
-     * The rest of the configuration is for REST-ful MVC.
-     */
+    @Bean
+    public ViewResolver defaultViewResolver() {
+        InternalResourceViewResolver resolver = new InternalResourceViewResolver();
+        resolver.setPrefix("/WEB-INF/jsp");
+        resolver.setSuffix(".jsp");
+        return resolver;
+    }
 
     // TODO #5 override one of base class methods to configure JSON message converter to automatically convert
     // JSON request body into entities and entities into JSON response body;
-    public void replaceMeWithMessageConvertersConfig() {}
+    public void configMessageConverter(List<HttpMessageConverter<?>> converterList) {
+        converterList.add(buildJsonMessageConverter());
+    }
 
     public static HttpMessageConverter<?> buildJsonMessageConverter() {
         MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();

@@ -20,6 +20,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.web.context.WebApplicationContext;
 
@@ -29,12 +30,9 @@ import savings.web.impl.WebConfiguration;
 /**
  * This test presents how to test MVC controllers logic utilizing minimized Spring ApplicationContext.
  */
-// TODO #0 remove @Ignore to run test
-// TODO #1 mark this test with appropriate annotation to indicate that a {@link WebApplicationContext} should be loaded
-// instead of a regular one
-@Ignore
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration
+@WebAppConfiguration
 public class PaybackControllerTest {
 
     @Configuration

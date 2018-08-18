@@ -28,8 +28,6 @@ import savings.web.impl.PaybackRestController;
 /**
  * Notice that you do _not_ need a Spring ApplicationContext to test MVC controllers using MockMvc.
  */
-// TODO #0 remove @Ignore to run test
-@Ignore
 @RunWith(MockitoJUnitRunner.class)
 public class PaybackRestControllerTest {
 
