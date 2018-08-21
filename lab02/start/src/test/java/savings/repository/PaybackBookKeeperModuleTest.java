@@ -10,14 +10,14 @@ import org.joda.money.Money;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.dao.EmptyResultDataAccessException;
 
 import savings.model.PaybackConfirmation;
 import savings.model.Purchase;
 import savings.service.PaybackBookKeeper;
 
-// FIXME 0: remove @Ignore to use the test
-@Ignore
 public class PaybackBookKeeperModuleTest {
 
     PaybackBookKeeper bookKeeper = null;
@@ -30,9 +30,11 @@ public class PaybackBookKeeperModuleTest {
 
     @Before
     public void setUp() {
-        // FIXME 1: Instantiate an ApplicationContext and retrieve the bookKeeper from it.
-        // Use application-context.xml and datasource-testcontext.xml files for that.
-        bookKeeper = null;
+        ApplicationContext context = new ClassPathXmlApplicationContext(
+                "classpath:/META-INF/spring/application-context.xml",
+                "classpath:/META-INF/spring/datasource-testcontext.xml"
+        );
+        bookKeeper = context.getBean("paybackBookKeeperImpl", PaybackBookKeeper.class);
     }
 
     @Test

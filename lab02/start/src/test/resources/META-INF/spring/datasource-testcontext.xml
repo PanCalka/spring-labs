@@ -2,12 +2,10 @@
 <beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.springframework.org/schema/beans"
     xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <!--
-        Configure test data source here - use common.sql.TestDataSourceFactory.
-        SQL scripts required to configure the test DB are located in commons module test resources under META-INF/sql:
-         * schemaLocation - classpath:/META-INF/sql/schema.sql
-         * dataLocation - classpath:/META-INF/sql/data.sql
-        The scripts are accessible from this modules classpath.
-    -->
+    <bean id="dataSource" class="common.sql.TestDataSourceFactory">
+        <constructor-arg name="schemaLocation" value="classpath:/META-INF/sql/schema.sql" />
+        <constructor-arg name="dataLocation" value="classpath:/META-INF/sql/data.sql" />
+    </bean>
+
 
 </beans>

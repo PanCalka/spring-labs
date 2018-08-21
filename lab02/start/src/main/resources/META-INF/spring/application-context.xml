@@ -2,10 +2,23 @@
 <beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.springframework.org/schema/beans"
     xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <!--
-        Configure application classes here.
-        You'll need savings.service.PaybackBookKeeper implementation along with all its dependencies.
-        Use auto-completion as much as possible (Ctrl+Space).
-     -->
+    <bean id="jdbcAccountRepository" class="savings.repository.impl.JdbcAccountRepository">
+        <property name="dataSource" ref="dataSource"></property>
+    </bean>
+
+    <bean id="jdbcMerchantRepository" class="savings.repository.impl.JdbcMerchantRepository">
+        <property name="dataSource" ref="dataSource"></property>
+    </bean>
+
+    <bean id="jdbcPaybackRepository" class="savings.repository.impl.JdbcPaybackRepository">
+        <property name="dataSource" ref="dataSource"></property>
+    </bean>
+
+    <bean id="paybackBookKeeperImpl" class="savings.service.impl.PaybackBookKeeperImpl">
+        <constructor-arg ref="jdbcAccountRepository"/>
+        <constructor-arg ref="jdbcMerchantRepository"/>
+        <constructor-arg ref="jdbcPaybackRepository"/>
+    </bean>
+
 
 </beans>
