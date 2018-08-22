@@ -19,8 +19,7 @@ import savings.model.PaybackConfirmation;
 import savings.model.Purchase;
 import savings.service.PaybackBookKeeper;
 
-// FIXME 0: remove @Ignore to use the test
-@Ignore
+
 public class PaybackBookKeeperModuleTest {
 
     PaybackBookKeeper bookKeeper = null;

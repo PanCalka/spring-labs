@@ -8,17 +8,19 @@
     <!--
         FIXME 1: Enable handling of annotations such as @PostConstruct, @PreDestroy and @Required using `context` namespace.
     -->
+    <context:annotation-config></context:annotation-config>
 
     <!--
         FIXME 2: Replace static values below with ${placeholders}
     -->
     <bean id="dataSource" class="common.sql.TestDataSourceFactory"
-        c:schemaLocation="classpath:/META-INF/sql/schema.sql"
-        c:dataLocation="classpath:/META-INF/sql/data.sql" />
+        c:schemaLocation="${test.schema.location}"
+        c:dataLocation="${test.data.location}" />
 
     <!--
         FIXME 3: Declare a <context:property-placeholder/> that facilitates `classpath:META-INF/application.properties`
         to fill in used ${placeholders}
     -->
+    <context:property-placeholder location="classpath:META-INF/application.properties" />
 
 </beans>

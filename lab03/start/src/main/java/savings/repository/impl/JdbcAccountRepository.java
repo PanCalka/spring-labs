@@ -10,6 +10,7 @@ import java.sql.SQLException;
 import javax.sql.DataSource;
 
 import org.joda.money.Money;
+import org.springframework.beans.factory.annotation.Required;
 import org.springframework.dao.EmptyResultDataAccessException;
 
 import common.math.Percentage;
@@ -25,6 +26,7 @@ public class JdbcAccountRepository implements AccountRepository {
     // FIXME 1: after you've got the red bar, add @Required annotation to this setter to get a more descriptive error message.
     // Think why and how @Required worked?
     // FIXME 2: now restore the `application-context.xml` to previous state and ensure all tests are green again.
+    @Required
     public void setDataSource(DataSource dataSource) {
         this.dataSource = dataSource;
     }

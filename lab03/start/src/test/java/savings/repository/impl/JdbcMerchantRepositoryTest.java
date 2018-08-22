@@ -17,8 +17,6 @@ import common.math.Percentage;
 import common.sql.TestDataSourceFactory;
 import savings.model.Merchant;
 
-// FIXME 0: remove @Ignore to use the test
-@Ignore
 public class JdbcMerchantRepositoryTest {
 
     JdbcMerchantRepository repository;
@@ -30,6 +28,7 @@ public class JdbcMerchantRepositoryTest {
         repository = new JdbcMerchantRepository();
         // deliver its dependencies
         repository.setDataSource(createDataSource());
+        repository.populateCache();
         // FIXME 1: initialize the bean
 
     }
@@ -37,8 +36,7 @@ public class JdbcMerchantRepositoryTest {
     @After
     public void tearDown() {
         // simulate Spring bean destruction lifecycle
-        // FIXME 2: destroy the bean
-
+        repository.clearCache();
     }
 
     @Test
